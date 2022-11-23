@@ -1,0 +1,16 @@
+.message {
+  border: 1px solid black;
+  padding: 10px 15px;
+  margin: 10px;
+  width: 60%;
+}
+
+.message-form {
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+.message-form button {
+  margin-left: 15px;
+  padding: 0 15px;
+}
