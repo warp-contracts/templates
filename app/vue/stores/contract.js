@@ -10,7 +10,6 @@ export const useContractStore = defineStore('contract', {
       warp: null,
       contract: null,
       wallet: null,
-      connectingError: false,
     };
   },
   actions: {
