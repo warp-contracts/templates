@@ -2029,7 +2029,19 @@ array-union@^2.1.0:
   resolved "https://registry.yarnpkg.com/array-union/-/array-union-2.1.0.tgz#b798420adbeb1de828d84acd8a2e23d3efe85e8d"
   integrity sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==
 
-arweave@1.11.6, arweave@^1.10.13:
+arweave@1.11.7:
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/arweave/-/arweave-1.11.7.tgz#41266e2ad98e9d3fe19ccc781f6d6259c5724455"
+  integrity sha512-T4o1OZVUbigNSNWQTM84z2wDJ6ERSXSBVecB+TQF2VzYbwuekLbl/iDSrgGlY4aH1ZzbCuA5oWrlcRMqG0XnCg==
+  dependencies:
+    arconnect "^0.4.2"
+    asn1.js "^5.4.1"
+    axios "^0.27.2"
+    base64-js "^1.5.1"
+    bignumber.js "^9.0.2"
+    util "^0.12.4"
+
+arweave@^1.10.13:
   version "1.11.6"
   resolved "https://registry.yarnpkg.com/arweave/-/arweave-1.11.6.tgz#5afcded201c6f123dd62e5bfae1b72ca793ec7c2"
   integrity sha512-D6N6e2z7oZoxFhu/qElLwQ2T8DxZ8xIqDB+Y16KHvZbassIrrS9iALwxLdaFYNInuyElg6i7qotBMcShWbFSTw==
@@ -6573,15 +6585,15 @@ vue@^3.2.13:
     "@vue/server-renderer" "3.2.45"
     "@vue/shared" "3.2.45"
 
-warp-contracts@^1.2.24:
-  version "1.2.24"
-  resolved "https://registry.yarnpkg.com/warp-contracts/-/warp-contracts-1.2.24.tgz#cc9cd7893d7e1cdcd49e87b83d061c05630f47b4"
-  integrity sha512-b9N4X8CqAcM7IHqeEKWlqS2modofbysmS2PEuPfqml7AMIpUchhaeYOg95IiaZfOqdtETEKzhbHJVau6uwbHIQ==
+warp-contracts@^1.2.28:
+  version "1.2.29"
+  resolved "https://registry.yarnpkg.com/warp-contracts/-/warp-contracts-1.2.29.tgz#22ec766ee2590f3cf65415796294995e60bc6d75"
+  integrity sha512-TJky/MqcNpcatGm5ZvLvoOM0thE6IE3bEnDeBgphgOduq46LoTyBsM4beUSVveKwxi/5UeB7IAhV/x3BB9o/WQ==
   dependencies:
     "@assemblyscript/loader" "^0.19.23"
     "@idena/vrf-js" "^1.0.1"
     archiver "^5.3.0"
-    arweave "1.11.6"
+    arweave "1.11.7"
     elliptic "^6.5.4"
     events "3.3.0"
     fast-copy "^3.0.0"
