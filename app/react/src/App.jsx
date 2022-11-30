@@ -1,42 +1,50 @@
 import { useState, useEffect } from 'react';
-import { WarpFactory } from 'warp-contracts/web';
+import { WarpFactory, defaultCacheOptions } from 'warp-contracts/web';
 import './App.css';
 
+const warp = WarpFactory.forMainnet({ ...defaultCacheOptions, inMemory: true });
+const contractId = 'N4G1F2ftAbArKpS5iHjPSuOY7GMQvyiEIcS-W4CVLbk';
+
+const getContract = async () => {
+  const wallet = await warp.arweave.wallets.generate();
+  const contract = await warp.contract(contractId).connect(wallet);
+
+  return contract;
+};
+
+const getState = async (contract) => {
+  const { cachedValue } = await contract.readState();
+  const state = cachedValue.state;
+  return state;
+};
+
 function App() {
-  const stateArr = [];
-  const contractId = 'N4G1F2ftAbArKpS5iHjPSuOY7GMQvyiEIcS-W4CVLbk';
-  let warp = '';
-  let wallet = '';
-  let contract = '';
-  let [contractState, setContractState] = useState(stateArr);
-  let [name, setName] = useState('');
+  const [contractState, setContractState] = useState({});
+  const [warpContract, setWarpContract] = useState({});
+  const [name, setName] = useState('');
 
   useEffect(() => {
-    getContract();
+    async function fetchContractData() {
+      const contract = await getContract();
+      const state = await getState(contract);
+      setWarpContract(contract);
+      setContractState((prevState) => ({ ...prevState, state }));
+    }
+    fetchContractData();
   }, []);
- 
 
-  const getContract = async () => {
-    warp = await WarpFactory.forMainnet();
-    contract = await warp.contract(contractId);
-    const { cachedValue } = await contract.readState();
-    setContractState((oldArray) => [...oldArray, cachedValue.state]);
-  };
-  const connectWallet = async () => {
-    wallet = await warp.arweave.wallets.generate();
-    contract.connect(wallet);
-  };
   const addContent = async (e) => {
     e.preventDefault();
     if (!name) {
       return;
     } else {
-      await connectWallet();
-      await contract.writeInteraction({
+      await warpContract.writeInteraction({
         function: 'helloWrite',
         name: name,
       });
-      getContract();
+      const state = await getState(warpContract);
+      setContractState((prevState) => ({ ...prevState, state }));
+      setName('');
     }
   };
   const handleNameChange = (event) => {
@@ -58,19 +66,15 @@ function App() {
           <button type="submit">Add</button>
         </form>
       </div>
-      <div className="state-content">
-        {contractState.length > 0 &&
-          contractState.map((obj) => {
-            const [key] = Object.keys(obj);
-            const [value] = Object.values(obj);
-
-            return (
-              <p key={key}>
-                {key} said: {value}
-              </p>
-            );
-          })}
-      </div>
+      {contractState.state && (
+        <div className="state-content">
+          {Object.keys(contractState.state).map((keyName) => (
+            <p key={keyName}>
+              {keyName} said: {contractState.state[keyName]}
+            </p>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
