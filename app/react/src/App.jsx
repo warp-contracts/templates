@@ -20,14 +20,12 @@ const getState = async (contract) => {
 
 function App() {
   const [contractState, setContractState] = useState({});
-  const [warpContract, setWarpContract] = useState({});
   const [name, setName] = useState('');
 
   useEffect(() => {
     async function fetchContractData() {
       const contract = await getContract();
       const state = await getState(contract);
-      setWarpContract(contract);
       setContractState((prevState) => ({ ...prevState, state }));
     }
     fetchContractData();
@@ -38,11 +36,12 @@ function App() {
     if (!name) {
       return;
     } else {
-      await warpContract.writeInteraction({
+      const contract = await getContract();
+      await contract.writeInteraction({
         function: 'helloWrite',
         name: name,
       });
-      const state = await getState(warpContract);
+      const state = await getState(contract);
       setContractState((prevState) => ({ ...prevState, state }));
       setName('');
     }
