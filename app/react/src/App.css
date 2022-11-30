@@ -4,3 +4,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.name-input {
+  margin-top: 40px;
+}
+
+.name-input > input {
+  width: 200px;
+  padding: 8px 12px;
+}
+
+.state-content {
+  margin-top: 20px;
+}
