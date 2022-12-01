@@ -7,14 +7,13 @@ export const useContractStore = defineStore('contract', {
     return {
       contractState: [],
       contractId: 'N4G1F2ftAbArKpS5iHjPSuOY7GMQvyiEIcS-W4CVLbk',
-      warp: null,
+      warp: WarpFactory.forMainnet(),
       contract: null,
       wallet: null,
     };
   },
   actions: {
     async getContract() {
-      this.warp = await WarpFactory.forMainnet();
       this.contract = await this.warp.contract(this.contractId);
       const { cachedValue } = await this.contract.readState();
       this.contractState = cachedValue.state;
