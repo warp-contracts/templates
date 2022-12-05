@@ -35,7 +35,7 @@ describe('Testing Hello contract', () => {
 
     contractSrc = fs.readFileSync(path.join(__dirname, '../dist/contract.js'), 'utf8');
 
-    ({ contractTxId: contractId } = await warp.createContract.deploy({
+    ({ contractTxId: contractId } = await warp.deploy({
       wallet: ownerWallet,
       initState: JSON.stringify(initialState),
       src: contractSrc,

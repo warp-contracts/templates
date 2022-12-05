@@ -15,12 +15,13 @@ describe('Testing Hello contract', () => {
     warp = WarpFactory.forLocal(1985);
 
     // note: warp.testing.generateWallet() automatically adds funds to the wallet
-    ({ jwk: wallet } = await warp.testing.generateWallet());
+    ({ jwk: wallet } = await warp.generateWallet());
+    walletAddress = await warp.arweave.wallets.jwkToAddress(wallet);
 
     // Deploying contract
     contractSrc = fs.readFileSync(path.join(__dirname, '../contract.js'), 'utf8');
-    initialState = fs.readFileSync(path.join(__dirname, '../initial-state.json'), 'utf8');
-    ({ contractTxId: contractId } = await warp.createContract.deploy({
+    initialState = {};
+    ({ contractTxId: contractId } = await warp.deploy({
       wallet,
       initState: JSON.stringify(initialState),
       src: contractSrc,
@@ -43,15 +44,9 @@ describe('Testing Hello contract', () => {
   });
 
   it('should add content', async () => {
-    await contract.writeInteraction({
-      function: 'helloWrite',
-      name: 'function content'
-    })
-  });
+    await contract.writeInteraction({ function: 'helloWrite', name: 'function content' });
 
-  // it('should read state after interaction', async () => {
-  //   const state = await contract.readState(); 
-  //   console.dir(state);
-  //   // expect((await contract.readState()).cachedValue.state.messages[0]).toEqual('function content');
-  // });
+    const { cachedValue } = await contract.readState();
+    expect(cachedValue.state[walletAddress]).toEqual('function content');
+  });
 });

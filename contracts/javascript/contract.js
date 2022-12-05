@@ -1,22 +1,19 @@
 export async function handle(state, action) {
+  const name = action.input.name;
+  const caller = action.caller;
   switch (action.input.function) {
     case 'helloWrite': {
-      const name = action.input.name;
-      const caller = action.caller;
-
       if (!name) {
         throw new ContractError(`Creator must provide a name.`);
       }
-      if (state.messages[caller]) {
+
+      if (state[caller]) {
         throw new ContractError(`Creator already added.`);
       }
-      state.messages[caller] = name;
+
+      state[caller] = name;
 
       return { state };
-    }
-
-    default: {
-      throw new ContractError(`Unsupported contract function: ${functionName}`);
     }
   }
 }
