@@ -1,7 +1,7 @@
 {
   "scripts": {
     "test:contracts": "yarn test:contracts:node && yarn test:contracts:browser",
-    "test:contracts:node": "jest tests",
+    "test": "jest",
     "test:contracts:browser": "jest tests/contracts --config ./jest.browser.config.js"
   },
   "dependencies": {
