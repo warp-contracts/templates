@@ -3,8 +3,7 @@ export async function handle(state, action) {
     case 'helloWrite': {
       const name = action.input.name;
       const caller = action.caller;
-      logger.info(`name => ${name}`);
-      logger.info(`caller => ${caller}`);
+
       if (!name) {
         throw new ContractError(`Creator must provide a name.`);
       }
