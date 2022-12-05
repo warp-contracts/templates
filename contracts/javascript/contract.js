@@ -1,15 +1,17 @@
 export async function handle(state, action) {
   switch (action.input.function) {
     case 'helloWrite': {
-      const name = action.input.data.name;
-      const caller = action.input.data.caller;
+      const name = action.input.name;
+      const caller = action.caller;
+      logger.info(`name => ${name}`);
+      logger.info(`caller => ${caller}`);
       if (!name) {
         throw new ContractError(`Creator must provide a name.`);
       }
-      if (state[caller]) {
+      if (state.messages[caller]) {
         throw new ContractError(`Creator already added.`);
       }
-      state[caller] = name;
+      state.messages[caller] = name;
 
       return { state };
     }
