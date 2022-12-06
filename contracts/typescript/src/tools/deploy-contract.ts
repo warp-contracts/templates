@@ -19,7 +19,7 @@ import { WarpFactory } from 'warp-contracts';
   const initialState = {};
 
   console.log('Deployment started');
-  const { contractTxId } = await warp.createContract.deploy({
+  const { contractTxId } = await warp.deploy({
     wallet,
     initState: JSON.stringify(initialState),
     src: contractSrc,

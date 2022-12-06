@@ -1,5 +1,14 @@
 {
+  "name": "warp-template-javascript",
+  "version": "0.0.1",
+  "description": "Warp contracts - Javacript template",
+  "main": "index.js",
+  "author": "Redstone Team <dev@redstone.finance>",
+  "license": "MIT",
+  "private": false,
   "scripts": {
+    "deploy:testnet": "yarn node tools/deploy-testnet-contract.js",
+    "deploy:mainnet": "yarn node tools/deploy-contract.js",
     "test:contracts": "yarn test:contracts:node && yarn test:contracts:browser",
     "test": "jest",
     "test:contracts:browser": "jest tests/contracts --config ./jest.browser.config.js"

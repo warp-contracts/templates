@@ -1,10 +1,10 @@
-import fs from 'fs';
-import path from 'path';
-import { WarpFactory } from 'warp-contracts';
+const fs = require('fs');
+const path = require('path');
+const { WarpFactory } = require('warp-contracts');
 
 (async () => {
   const warp = WarpFactory.forTestnet();
-  let wallet: any;
+  let wallet;
   let walletDir = path.resolve('.secrets');
   let walletFilename = path.join(walletDir, `/wallet_${warp.environment}.json`);
   if (fs.existsSync(walletFilename)) {
@@ -14,7 +14,7 @@ import { WarpFactory } from 'warp-contracts';
     if (!fs.existsSync(walletDir)) fs.mkdirSync(walletDir);
     fs.writeFileSync(walletFilename, JSON.stringify(wallet));
   }
-  const contractSrc = fs.readFileSync(path.join(__dirname, '../../dist/contract.js'), 'utf8');
+  const contractSrc = fs.readFileSync(path.join(__dirname, '../contract.js'), 'utf8');
 
   const initialState = {};
 
