@@ -49,4 +49,16 @@ describe('Testing Hello contract', () => {
     const { cachedValue } = await contract.readState();
     expect(cachedValue.state[walletAddress]).toEqual('function content');
   });
+
+  it('should not post with no content', async () => {
+    await expect(contract.writeInteraction({ function: 'helloWrite' }, { strict: true })).rejects.toThrow(
+      'Cannot create interaction: Creator must provide a name.'
+    );
+  });
+
+  it('should not be possible for creator post name twice', async () => {
+    await expect(contract.writeInteraction({ function: 'helloWrite', name: 'Another content' }, { strict: true })).rejects.toThrow(
+      'Cannot create interaction: Creator already added.'
+    );
+  });
 });
