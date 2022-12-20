@@ -21,7 +21,7 @@ const getState = async (contract: any) => {
 };
 
 function App() {
-  const [contractState, setContractState] = useState({});
+  const [contractState, setContractState] = useState<{state: any}>({state: {}});
   const [name, setName] = useState('');
 
   useEffect(() => {
